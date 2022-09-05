@@ -1,4 +1,4 @@
-package com.street.fox.home
+package com.street.fox.usecase
 
 data class HomeViewData(
     val username: String

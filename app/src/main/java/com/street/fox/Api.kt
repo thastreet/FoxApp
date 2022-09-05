@@ -1,7 +1,5 @@
-package com.street.fox.api
+package com.street.fox
 
-import com.street.fox.Const
-import com.street.fox.StateData
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get

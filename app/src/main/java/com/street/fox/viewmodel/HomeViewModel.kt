@@ -1,7 +1,8 @@
-package com.street.fox.home
+package com.street.fox.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.street.fox.StateData
+import com.street.fox.usecase.HomeUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import org.koin.android.annotation.KoinViewModel

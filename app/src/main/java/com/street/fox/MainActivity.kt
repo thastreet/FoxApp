@@ -15,7 +15,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
-import com.street.fox.home.HomeViewModel
+import com.street.fox.viewmodel.HomeViewModel
 import com.street.fox.ui.theme.FoxTheme
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch

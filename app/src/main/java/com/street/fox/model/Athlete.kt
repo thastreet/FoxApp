@@ -1,4 +1,4 @@
-package com.street.fox.api
+package com.street.fox.model
 
 import kotlinx.serialization.Serializable
 

@@ -1,6 +1,6 @@
-package com.street.fox.home
+package com.street.fox.usecase
 
-import com.street.fox.AthleteRepository
+import com.street.fox.repository.AthleteRepository
 import com.street.fox.StateData
 import com.street.fox.extensions.mapData
 import kotlinx.coroutines.flow.Flow
