@@ -1,7 +1,10 @@
 package com.street.fox
 
 import android.app.Application
+import android.content.SharedPreferences
 import android.util.Log
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.android.Android
@@ -44,11 +47,23 @@ class App : Application() {
                             get<TokenRepository>().setToken(it)
                         })
                     }
+                    single {
+                        createEncryptedSharedPreferences()
+                    }
                 },
                 AppModule().module
             )
         }
     }
+
+    private fun createEncryptedSharedPreferences(): SharedPreferences =
+        EncryptedSharedPreferences.create(
+            "fox",
+            MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
+            this,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
 
     @Serializable
     private data class RefreshTokenResponse(

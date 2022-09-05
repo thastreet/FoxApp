@@ -1,19 +1,16 @@
 package com.street.fox
 
-import android.content.Context
+import android.content.SharedPreferences
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.serialization.json.Json
 import org.koin.core.annotation.Single
 
 @Single
-class TokenRepository(context: Context) {
+class TokenRepository(private val sharedPreferences: SharedPreferences) {
     companion object {
-        private const val SHARED_PREF_NAME = "fox"
         private const val TOKEN_KEY = "TOKEN_KEY"
     }
-
-    private val sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
 
     private val internalToken: MutableStateFlow<Token> = MutableStateFlow(getToken())
     val token: Flow<Token> = internalToken
