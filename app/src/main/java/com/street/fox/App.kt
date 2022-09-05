@@ -1,6 +1,7 @@
 package com.street.fox
 
 import android.app.Application
+import com.street.fox.repository.TokenRepository
 import com.street.fox.utils.createEncryptedSharedPreferences
 import com.street.fox.utils.createHttpClient
 import org.koin.android.ext.koin.androidContext

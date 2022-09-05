@@ -2,7 +2,7 @@ package com.street.fox.utils
 
 import android.util.Log
 import com.street.fox.Const
-import com.street.fox.Token
+import com.street.fox.repository.Token
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.android.Android

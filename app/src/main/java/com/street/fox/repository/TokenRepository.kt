@@ -1,4 +1,4 @@
-package com.street.fox
+package com.street.fox.repository
 
 import android.content.SharedPreferences
 import kotlinx.coroutines.flow.Flow
