@@ -13,12 +13,10 @@ class TokenRepository(private val sharedPreferences: SharedPreferences) {
         private const val TOKEN_KEY = "TOKEN_KEY"
     }
 
-    private val internalToken: MutableStateFlow<Token> = MutableStateFlow(getToken())
-
-    private val token: Flow<Token> = internalToken
+    private val token: MutableStateFlow<Token> = MutableStateFlow(getToken())
 
     val currentToken: Token
-        get() = internalToken.value
+        get() = token.value
 
     fun getToken(): Token =
         sharedPreferences
@@ -32,7 +30,7 @@ class TokenRepository(private val sharedPreferences: SharedPreferences) {
             .edit()
             .putString(TOKEN_KEY, Json.encodeToString(Token.serializer(), token))
             .apply()
-        internalToken.value = token
+        this.token.value = token
     }
 
     val isLoggedIn: Flow<Boolean> =
