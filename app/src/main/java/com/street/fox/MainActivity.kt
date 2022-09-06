@@ -6,19 +6,35 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import com.street.fox.repository.Token
 import com.street.fox.repository.TokenRepository
-import com.street.fox.viewmodel.HomeViewModel
 import com.street.fox.ui.theme.FoxTheme
+import com.street.fox.viewmodel.MainViewModel
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -33,18 +49,23 @@ class MainActivity : ComponentActivity() {
     }
 
     private val tokenRepository: TokenRepository by inject()
-    private val homeViewModel: HomeViewModel by viewModel()
+    private val mainViewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             FoxTheme {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-                    Greeting(homeViewModel)
+                    val showLogin by mainViewModel.showLogin.collectAsState(initial = false)
+                    if (showLogin) {
+                        Login(::login)
+                    }
                 }
             }
         }
+    }
 
+    private fun login() {
         lifecycleScope.launch {
             val token: Token = tokenRepository.token.firstOrNull() ?: Token.default
             if (token is Token.NotSet) {
@@ -77,16 +98,43 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(viewModel: HomeViewModel) {
-    val username: String = viewModel.username.collectAsState("").value
+fun Login(loginAction: () -> Unit) {
+    Box(
+        Modifier
+            .fillMaxSize()
+            .background(Color(0xFFFF00))
+    ) {
+        Column(
+            Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.img_tails),
+                contentDescription = null,
+                modifier = Modifier.fillMaxWidth(0.5f)
+            )
 
-    Text(text = username)
+            Button(
+                onClick = loginAction
+            ) {
+                Text(text = "Login with ")
+                Spacer(modifier = Modifier.width(2.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.ic_strava_logo_word_white),
+                    contentDescription = null,
+                    modifier = Modifier.height(10.dp),
+                    contentScale = ContentScale.FillHeight
+                )
+            }
+        }
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     FoxTheme {
-        //Greeting()
+        Login {}
     }
 }

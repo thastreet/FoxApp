@@ -53,7 +53,8 @@ android {
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
         kotlinOptions {
             freeCompilerArgs += [
-                '-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi'
+                '-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi',
+                '-Xopt-in=androidx.compose.ui.text.ExperimentalTextApi'
             ]
         }
     }
