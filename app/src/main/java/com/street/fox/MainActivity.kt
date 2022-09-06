@@ -139,8 +139,16 @@ fun Login(loginAction: () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
+fun LoginPreview() {
     FoxTheme {
         Login {}
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MainPreview() {
+    FoxTheme {
+        Main(MainViewData.Content.MainScreen("Terry Fox"))
     }
 }
