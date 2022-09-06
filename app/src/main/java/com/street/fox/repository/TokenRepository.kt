@@ -14,7 +14,11 @@ class TokenRepository(private val sharedPreferences: SharedPreferences) {
     }
 
     private val internalToken: MutableStateFlow<Token> = MutableStateFlow(getToken())
-    val token: Flow<Token> = internalToken
+
+    private val token: Flow<Token> = internalToken
+
+    val currentToken: Token
+        get() = internalToken.value
 
     fun getToken(): Token =
         sharedPreferences

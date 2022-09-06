@@ -28,14 +28,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.lifecycleScope
 import com.street.fox.repository.Token
 import com.street.fox.repository.TokenRepository
 import com.street.fox.ui.theme.FoxTheme
 import com.street.fox.usecase.MainViewData
 import com.street.fox.viewmodel.MainViewModel
-import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -66,13 +63,10 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun login() {
-        lifecycleScope.launch {
-            val token: Token = tokenRepository.token.firstOrNull() ?: Token.default
-            if (token is Token.NotSet) {
-                Intent(Intent.ACTION_VIEW).let { intent ->
-                    intent.data = Uri.parse("${Const.BASE_API_URL}/login")
-                    startActivity(intent)
-                }
+        if (tokenRepository.currentToken is Token.NotSet) {
+            Intent(Intent.ACTION_VIEW).let { intent ->
+                intent.data = Uri.parse("${Const.BASE_API_URL}/login")
+                startActivity(intent)
             }
         }
     }
