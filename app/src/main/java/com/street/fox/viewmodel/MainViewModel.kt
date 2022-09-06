@@ -7,5 +7,5 @@ import org.koin.android.annotation.KoinViewModel
 
 @KoinViewModel
 class MainViewModel(mainUseCase: MainUseCase) : ViewModel() {
-    val showLogin = mainUseCase.getMainViewData().mapLatest { it.showLogin }
+    val content = mainUseCase.getMainViewData().mapLatest { it.content }
 }

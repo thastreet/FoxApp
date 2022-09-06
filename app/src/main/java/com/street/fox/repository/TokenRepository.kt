@@ -3,6 +3,7 @@ package com.street.fox.repository
 import android.content.SharedPreferences
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.mapLatest
 import kotlinx.serialization.json.Json
 import org.koin.core.annotation.Single
 
@@ -29,4 +30,7 @@ class TokenRepository(private val sharedPreferences: SharedPreferences) {
             .apply()
         internalToken.value = token
     }
+
+    val isLoggedIn: Flow<Boolean> =
+        token.mapLatest { it is Token.Value }
 }

@@ -11,11 +11,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -34,6 +32,7 @@ import androidx.lifecycle.lifecycleScope
 import com.street.fox.repository.Token
 import com.street.fox.repository.TokenRepository
 import com.street.fox.ui.theme.FoxTheme
+import com.street.fox.usecase.MainViewData
 import com.street.fox.viewmodel.MainViewModel
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
@@ -56,9 +55,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             FoxTheme {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-                    val showLogin by mainViewModel.showLogin.collectAsState(initial = false)
-                    if (showLogin) {
-                        Login(::login)
+                    val currentContent by mainViewModel.content.collectAsState(initial = MainViewData.Content.LoginScreen)
+                    when (val content = currentContent) {
+                        MainViewData.Content.LoginScreen -> Login(::login)
+                        is MainViewData.Content.MainScreen -> Main(content)
                     }
                 }
             }
@@ -98,6 +98,13 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
+fun Main(content: MainViewData.Content.MainScreen) {
+    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Text(text = content.name)
+    }
+}
+
+@Composable
 fun Login(loginAction: () -> Unit) {
     Box(
         Modifier
@@ -119,7 +126,6 @@ fun Login(loginAction: () -> Unit) {
                 onClick = loginAction
             ) {
                 Text(text = "Login with ")
-                Spacer(modifier = Modifier.width(2.dp))
                 Image(
                     painter = painterResource(id = R.drawable.ic_strava_logo_word_white),
                     contentDescription = null,

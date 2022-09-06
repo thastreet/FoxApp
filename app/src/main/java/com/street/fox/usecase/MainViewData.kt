@@ -1,5 +1,13 @@
 package com.street.fox.usecase
 
 data class MainViewData(
-    val showLogin: Boolean
-)
+    val content: Content
+) {
+    sealed interface Content {
+        object LoginScreen : Content
+
+        data class MainScreen(
+            val name: String
+        ) : Content
+    }
+}
