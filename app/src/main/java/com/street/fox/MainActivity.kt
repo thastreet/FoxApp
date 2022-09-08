@@ -11,12 +11,12 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.street.fox.composable.HomeScreen
 import com.street.fox.composable.LoginScreen
+import com.street.fox.extensions.popUpToStart
 import com.street.fox.ui.theme.FoxTheme
 import com.street.fox.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.getViewModel
@@ -46,15 +46,11 @@ class MainActivity : ComponentActivity() {
                     LaunchedEffect(true) {
                         mainViewModel.navListener = object : MainViewModel.NavListener {
                             override fun navigateToHome() = navController.navigate(Screen.HOME.route) {
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    inclusive = true
-                                }
+                                popUpToStart(navController)
                             }
 
                             override fun navigateToLogin() = navController.navigate(Screen.LOGIN.route) {
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    inclusive = true
-                                }
+                                popUpToStart(navController)
                             }
                         }
                     }
