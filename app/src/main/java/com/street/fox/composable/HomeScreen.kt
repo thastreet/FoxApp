@@ -7,9 +7,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.street.fox.ui.theme.FoxTheme
+import com.street.fox.viewmodel.HomeViewModel
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(viewModel: HomeViewModel) {
     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
     }
 }
@@ -18,6 +19,6 @@ fun HomeScreen() {
 @Composable
 fun HomeScreenPreview() {
     FoxTheme {
-        HomeScreen()
+        HomeScreen(HomeViewModel())
     }
 }

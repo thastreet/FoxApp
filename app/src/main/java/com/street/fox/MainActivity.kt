@@ -19,6 +19,7 @@ import com.street.fox.composable.HomeScreen
 import com.street.fox.composable.LoginScreen
 import com.street.fox.ui.theme.FoxTheme
 import com.street.fox.viewmodel.MainViewModel
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
@@ -38,7 +39,7 @@ class MainActivity : ComponentActivity() {
                             LoginScreen(::launchLogin)
                         }
                         composable(Screen.HOME.route) {
-                            HomeScreen()
+                            HomeScreen(getViewModel())
                         }
                     }
 
