@@ -21,7 +21,6 @@ import com.street.fox.ui.theme.FoxTheme
 import com.street.fox.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class MainActivity : ComponentActivity() {
     private val mainViewModel: MainViewModel by viewModel()
 

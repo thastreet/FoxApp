@@ -11,7 +11,6 @@ import com.street.fox.ui.theme.FoxTheme
 @Composable
 fun HomeScreen() {
     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-
     }
 }
 
