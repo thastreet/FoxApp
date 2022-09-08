@@ -15,9 +15,6 @@ class TokenRepository(private val sharedPreferences: SharedPreferences) {
 
     private val token: MutableStateFlow<Token> = MutableStateFlow(getToken())
 
-    val currentToken: Token
-        get() = token.value
-
     fun getToken(): Token =
         sharedPreferences
             .getString(TOKEN_KEY, null)
@@ -32,6 +29,9 @@ class TokenRepository(private val sharedPreferences: SharedPreferences) {
             .apply()
         this.token.value = token
     }
+
+    val isCurrentlyLoggedIn: Boolean
+        get() = token.value is Token.Value
 
     val isLoggedIn: Flow<Boolean> =
         token.mapLatest { it is Token.Value }
