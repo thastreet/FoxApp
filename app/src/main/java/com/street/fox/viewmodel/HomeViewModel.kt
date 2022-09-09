@@ -1,7 +1,8 @@
 package com.street.fox.viewmodel
 
-import androidx.lifecycle.ViewModel
-import org.koin.android.annotation.KoinViewModel
+import com.street.fox.usecase.HomeViewData
+import kotlinx.coroutines.flow.StateFlow
 
-@KoinViewModel
-class HomeViewModel : ViewModel()
+interface HomeViewModel {
+    val viewData: StateFlow<HomeViewData>
+}

@@ -32,17 +32,6 @@ class MainActivity : ComponentActivity() {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
                     val navController = rememberNavController()
 
-                    val initialScreen = mainViewModel.initialScreen
-
-                    NavHost(navController = navController, startDestination = initialScreen.route) {
-                        composable(Screen.LOGIN.route) {
-                            LoginScreen(::launchLogin)
-                        }
-                        composable(Screen.HOME.route) {
-                            HomeScreen(getViewModel())
-                        }
-                    }
-
                     LaunchedEffect(true) {
                         mainViewModel.navListener = object : MainViewModel.NavListener {
                             override fun navigateToHome() = navController.navigate(Screen.HOME.route) {
@@ -52,6 +41,15 @@ class MainActivity : ComponentActivity() {
                             override fun navigateToLogin() = navController.navigate(Screen.LOGIN.route) {
                                 popUpToStart(navController)
                             }
+                        }
+                    }
+
+                    NavHost(navController = navController, startDestination = mainViewModel.initialScreen.route) {
+                        composable(Screen.LOGIN.route) {
+                            LoginScreen(::launchLogin)
+                        }
+                        composable(Screen.HOME.route) {
+                            HomeScreen(getViewModel())
                         }
                     }
                 }
