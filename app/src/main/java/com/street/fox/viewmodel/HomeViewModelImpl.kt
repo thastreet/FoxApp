@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 
-@KoinViewModel(binds = [HomeViewModel::class])
+@KoinViewModel
 class HomeViewModelImpl(homeUseCase: HomeUseCase) : ViewModel(), HomeViewModel {
     private val internalViewData = MutableStateFlow(HomeViewData("", ""))
     override val viewData: StateFlow<HomeViewData> = internalViewData

@@ -18,6 +18,7 @@ import com.street.fox.composable.HomeScreen
 import com.street.fox.composable.LoginScreen
 import com.street.fox.extensions.popUpToStart
 import com.street.fox.ui.theme.FoxTheme
+import com.street.fox.viewmodel.HomeViewModelImpl
 import com.street.fox.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -27,6 +28,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             FoxTheme {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
@@ -49,7 +51,7 @@ class MainActivity : ComponentActivity() {
                             LoginScreen(::launchLogin)
                         }
                         composable(Screen.HOME.route) {
-                            HomeScreen(getViewModel())
+                            HomeScreen(getViewModel<HomeViewModelImpl>())
                         }
                     }
                 }
