@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
 
                     NavHost(navController = navController, startDestination = mainViewModel.initialScreen.route) {
                         composable(Screen.LOGIN.route) {
-                            LoginScreen(::launchLogin)
+                            LoginScreen(::launchStravaLogin, ::launchSpotifyLogin)
                         }
                         composable(Screen.HOME.route) {
                             HomeScreen(getViewModel<HomeViewModelImpl>())
@@ -59,9 +59,16 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun launchLogin() {
+    private fun launchStravaLogin() {
         Intent(Intent.ACTION_VIEW).let { intent ->
-            intent.data = Uri.parse("${Const.BASE_API_URL}/login")
+            intent.data = Uri.parse("${Const.BASE_API_URL}/login/strava")
+            startActivity(intent)
+        }
+    }
+
+    private fun launchSpotifyLogin() {
+        Intent(Intent.ACTION_VIEW).let { intent ->
+            intent.data = Uri.parse("${Const.BASE_API_URL}/login/spotify")
             startActivity(intent)
         }
     }

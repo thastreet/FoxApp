@@ -30,11 +30,11 @@
 
                 <data
                     android:host="login"
-                    android:scheme="stravastreet" />
+                    android:scheme="fox" />
 
                 <data
                     android:host="refresh"
-                    android:scheme="stravastreet" />
+                    android:scheme="fox" />
             </intent-filter>
         </activity>
     </application>

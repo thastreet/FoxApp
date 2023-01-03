@@ -1,7 +1,7 @@
 package com.street.fox.composable
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,7 +12,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,19 +20,17 @@ import com.street.fox.R
 import com.street.fox.ui.theme.FoxTheme
 
 @Composable
-fun LoginScreen(loginAction: () -> Unit) {
+fun LoginScreen(stravaLoginAction: () -> Unit, spotifyLoginAction: () -> Unit) {
     Box(
-        Modifier
-            .fillMaxSize()
-            .background(Color(0xFFFF00))
+        Modifier.fillMaxSize()
     ) {
         Column(
             Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceEvenly
+            verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically)
         ) {
             Button(
-                onClick = loginAction
+                onClick = stravaLoginAction
             ) {
                 Text(text = "Login with ")
                 Image(
@@ -43,6 +40,16 @@ fun LoginScreen(loginAction: () -> Unit) {
                     contentScale = ContentScale.FillHeight
                 )
             }
+            Image(
+                painter = painterResource(id = R.drawable.ic_spotify_login),
+                contentDescription = null,
+                modifier = Modifier
+                    .height(42.dp)
+                    .clickable {
+                        spotifyLoginAction()
+                    },
+                contentScale = ContentScale.FillHeight
+            )
         }
     }
 }
@@ -51,6 +58,6 @@ fun LoginScreen(loginAction: () -> Unit) {
 @Composable
 fun LoginScreenPreview() {
     FoxTheme {
-        LoginScreen {}
+        LoginScreen({}, {})
     }
 }
