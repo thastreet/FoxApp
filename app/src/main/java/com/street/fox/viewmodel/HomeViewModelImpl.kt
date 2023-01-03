@@ -12,7 +12,7 @@ import org.koin.android.annotation.KoinViewModel
 
 @KoinViewModel
 class HomeViewModelImpl(homeUseCase: HomeUseCase) : ViewModel(), HomeViewModel {
-    private val internalViewData = MutableStateFlow(HomeViewData("", ""))
+    private val internalViewData = MutableStateFlow(HomeViewData("", "", emptyList()))
     override val viewData: StateFlow<HomeViewData> = internalViewData
 
     init {

@@ -10,7 +10,6 @@ import io.ktor.client.plugins.auth.Auth
 import io.ktor.client.plugins.auth.providers.BearerTokens
 import io.ktor.client.plugins.auth.providers.bearer
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
@@ -31,11 +30,12 @@ fun createHttpClient(getToken: () -> Token, setToken: (token: Token) -> Unit): H
         }
 
         install(Logging) {
-            logger = Logger.DEFAULT
-            level = LogLevel.HEADERS
-            filter { request ->
-                request.url.host.contains("ktor.io")
+            logger = object : Logger {
+                override fun log(message: String) {
+                    Log.i("HTTP", message)
+                }
             }
+            level = LogLevel.ALL
         }
 
         install(ContentNegotiation) {

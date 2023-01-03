@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 interface MainUseCase {
     val initialScreen: Screen
     val isLoggedIn: Flow<Boolean>
-    fun handleLoginUri(uri: Uri): Boolean
+    fun handleLoginUri(uri: Uri, proceed: () -> Unit)
 }

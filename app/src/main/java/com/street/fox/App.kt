@@ -21,9 +21,9 @@ class App : Application() {
                 module {
                     single {
                         createHttpClient({
-                            get<TokenRepository>().getToken()
+                            get<TokenRepository>().getStravaToken()
                         }, {
-                            get<TokenRepository>().setToken(it)
+                            get<TokenRepository>().setStravaToken(it)
                         })
                     }
                     single { createEncryptedSharedPreferences(this@App) }

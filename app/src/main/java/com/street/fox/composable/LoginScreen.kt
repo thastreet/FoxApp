@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.Button
 import androidx.compose.material.Text
@@ -33,12 +32,6 @@ fun LoginScreen(loginAction: () -> Unit) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.img_tails),
-                contentDescription = null,
-                modifier = Modifier.fillMaxWidth(0.5f)
-            )
-
             Button(
                 onClick = loginAction
             ) {

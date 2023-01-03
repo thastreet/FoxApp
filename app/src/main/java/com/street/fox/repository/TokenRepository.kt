@@ -10,29 +10,29 @@ import org.koin.core.annotation.Single
 @Single
 class TokenRepository(private val sharedPreferences: SharedPreferences) {
     companion object {
-        private const val TOKEN_KEY = "TOKEN_KEY"
+        private const val STRAVA_TOKEN_KEY = "STRAVA_TOKEN_KEY"
     }
 
-    private val token: MutableStateFlow<Token> = MutableStateFlow(getToken())
+    private val stravaToken: MutableStateFlow<Token> = MutableStateFlow(getStravaToken())
 
-    fun getToken(): Token =
+    fun getStravaToken(): Token =
         sharedPreferences
-            .getString(TOKEN_KEY, null)
+            .getString(STRAVA_TOKEN_KEY, null)
             .takeUnless { it.isNullOrEmpty() }
             ?.let { token -> Json.decodeFromString(Token.serializer(), token) }
             ?: Token.NotSet
 
-    fun setToken(token: Token) {
+    fun setStravaToken(token: Token) {
         sharedPreferences
             .edit()
-            .putString(TOKEN_KEY, Json.encodeToString(Token.serializer(), token))
+            .putString(STRAVA_TOKEN_KEY, Json.encodeToString(Token.serializer(), token))
             .apply()
-        this.token.value = token
+        this.stravaToken.value = token
     }
 
     val isCurrentlyLoggedIn: Boolean
-        get() = token.value is Token.Value
+        get() = stravaToken.value is Token.Value
 
     val isLoggedIn: Flow<Boolean> =
-        token.mapLatest { it is Token.Value }
+        stravaToken.mapLatest { it is Token.Value }
 }

@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
 
-fun <T, U> Flow<StateData<T>>.mapData(transform: (T) -> U): Flow<StateData<U>> =
+fun <T, U> Flow<StateData<T>>.mapData(transform: (T?) -> U): Flow<StateData<U>> =
     map {
         it.mapData(transform)
     }

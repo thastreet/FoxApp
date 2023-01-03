@@ -34,7 +34,7 @@ class MainViewModel(private val mainUseCase: MainUseCase) : ViewModel() {
     }
 
     fun handleLoginUri(uri: Uri) {
-        if (mainUseCase.handleLoginUri(uri)) {
+        mainUseCase.handleLoginUri(uri) {
             navListener?.navigateToHome()
         }
     }

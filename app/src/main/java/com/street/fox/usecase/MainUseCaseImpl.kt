@@ -22,16 +22,14 @@ class MainUseCaseImpl(private val tokenRepository: TokenRepository) : MainUseCas
 
     override val isLoggedIn: Flow<Boolean> = tokenRepository.isLoggedIn
 
-    override fun handleLoginUri(uri: Uri): Boolean {
+    override fun handleLoginUri(uri: Uri, proceed: () -> Unit) {
         val result = uri.getQueryParameter(RESULT_QUERY_PARAM)
         val accessToken = uri.getQueryParameter(ACCESS_TOKEN_QUERY_PARAM)
         val refreshToken = uri.getQueryParameter(REFRESH_TOKEN_QUERY_PARAM)
 
         if (result == "success" && accessToken != null && refreshToken != null) {
-            tokenRepository.setToken(Token.Value(accessToken, refreshToken))
-            return true
+            tokenRepository.setStravaToken(Token.Value(accessToken, refreshToken))
+            proceed()
         }
-
-        return false
     }
 }
