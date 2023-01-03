@@ -1,5 +1,6 @@
 package com.street.fox.composable
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,7 +30,7 @@ import com.street.fox.viewmodel.HomeViewModelPreview
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel) {
-    val currentViewModel by viewModel.viewData.collectAsState()
+    val viewData by viewModel.viewData.collectAsState()
 
     Column(
         Modifier
@@ -40,7 +41,7 @@ fun HomeScreen(viewModel: HomeViewModel) {
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         AsyncImage(
-            model = currentViewModel.profileImageUrl,
+            model = viewData.profileImageUrl,
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth(0.5f)
@@ -48,13 +49,17 @@ fun HomeScreen(viewModel: HomeViewModel) {
                 .clip(CircleShape),
             contentScale = ContentScale.Crop
         )
-        Text(currentViewModel.name, color = Color.Black)
+        Text(viewData.name, color = Color.Black)
         Text("Activities:")
         Column(Modifier.fillMaxWidth()) {
-            currentViewModel.activities.forEach {
-                Box(Modifier.height(32.dp)) {
+            viewData.activities.forEach {
+                Box(
+                    Modifier
+                        .height(32.dp)
+                        .clickable { viewModel.onActivityTapped(it) }
+                ) {
                     Text(
-                        it,
+                        it.name,
                         modifier = Modifier
                             .align(Alignment.CenterStart)
                     )

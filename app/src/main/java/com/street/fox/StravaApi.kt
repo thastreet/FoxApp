@@ -6,9 +6,10 @@ import io.ktor.client.request.get
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.koin.core.annotation.Factory
+import org.koin.core.annotation.Named
 
 @Factory
-class Api(val httpClient: HttpClient) {
+class StravaApi(@Named("strava") val httpClient: HttpClient) {
     inline fun <reified T> request(path: String): Flow<StateData<T>> =
         flow {
             emit(StateData.Loading())

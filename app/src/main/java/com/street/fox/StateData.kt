@@ -8,7 +8,7 @@ sealed interface StateData<T> {
     ) : StateData<T>
 
     data class Data<T>(
-        override val value: T? = null
+        override val value: T
     ) : StateData<T>
 
     data class Error<T>(

@@ -20,7 +20,7 @@ class HomeUseCaseImpl(athleteRepository: AthleteRepository) : HomeUseCase {
                     HomeViewData(
                         "${athlete.firstname} ${athlete.lastname}",
                         athlete.profileImageUrl.orEmpty(),
-                        activities.map { it.name }
+                        activities.map { ActivityViewData(it.id, it.name) }
                     )
                 )
             } else {
