@@ -16,6 +16,7 @@ class TrackUseCaseImpl(private val trackRepository: TrackRepository) : TrackUseC
                 .map {
                     RecentlyPlayedViewData.Track(
                         it.track.name,
+                        it.track.artists.joinToString(", ") { it.name },
                         it.track.durationMs,
                         DateTime.parse(it.playedAt)
                     )

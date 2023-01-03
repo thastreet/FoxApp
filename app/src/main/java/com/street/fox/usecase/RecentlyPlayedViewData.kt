@@ -7,6 +7,7 @@ data class RecentlyPlayedViewData(
 ) {
     data class Track(
         val name: String,
+        val artist: String,
         val durationMs: Long,
         val playedAt: DateTimeTz
     )

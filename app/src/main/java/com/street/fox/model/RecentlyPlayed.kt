@@ -15,7 +15,13 @@ data class RecentlyPlayed(
         @Serializable
         data class Track(
             val name: String,
+            val artists: List<Artist>,
             @SerialName("duration_ms") val durationMs: Long
+        )
+
+        @Serializable
+        data class Artist(
+            val name: String
         )
     }
 }

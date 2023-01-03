@@ -9,6 +9,7 @@ import com.street.fox.usecase.ActivityViewData
 import com.street.fox.usecase.HomeUseCase
 import com.street.fox.usecase.HomeViewData
 import com.street.fox.usecase.TrackUseCase
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -39,10 +40,21 @@ class HomeViewModelImpl(
                 trackUseCase.getRecentlyPlayed(activityViewData)
                     .filter { it is StateData.Data }
                     .collectLatest {
-                        activityUseCase.updateActivity(activityViewData.id, "Test\nTest")
-                            .collectLatest {
-                                it
+                        val tracks = it.value?.tracks
+
+                        if (!tracks.isNullOrEmpty()) {
+                            val description = "\n\uD83C\uDFB5 Spotify Playlist \uD83C\uDFB5\n\n" + tracks.joinToString("\n") {
+                                it.name + " - " + it.artist
                             }
+
+                            activityUseCase.updateActivity(activityViewData.id, description)
+                                .filter { it is StateData.Data }
+                                .collectLatest {
+                                    cancel()
+                                }
+                        } else {
+                            cancel()
+                        }
                     }
             }
         }
