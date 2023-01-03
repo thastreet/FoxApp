@@ -1,5 +1,6 @@
 package com.street.fox.usecase
 
+import com.soywiz.klock.DateTime
 import com.street.fox.StateData
 import com.street.fox.repository.AthleteRepository
 import kotlinx.coroutines.flow.Flow
@@ -20,7 +21,7 @@ class HomeUseCaseImpl(athleteRepository: AthleteRepository) : HomeUseCase {
                     HomeViewData(
                         "${athlete.firstname} ${athlete.lastname}",
                         athlete.profileImageUrl.orEmpty(),
-                        activities.map { ActivityViewData(it.id, it.name) }
+                        activities.map { ActivityViewData(it.id, it.name, DateTime.parse(it.startDate), it.elapsedTimeSeconds) }
                     )
                 )
             } else {

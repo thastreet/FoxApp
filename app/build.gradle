@@ -91,6 +91,8 @@ dependencies {
     implementation 'androidx.security:security-crypto:1.0.0'
 
     implementation 'io.coil-kt:coil-compose:2.2.1'
+
+    implementation 'com.soywiz.korlibs.klock:klock-jvm:3.4.0'
 }
 
 ktlint {
